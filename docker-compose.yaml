@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: osticket_web
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/var/www/html
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=${DB_USER:-osticket}
+      - MYSQL_PASSWORD=${DB_PASS:-osticket}
+      - MYSQL_DATABASE=${DB_NAME:-osticket}
+    restart: always
+
+  db:
+    image: mysql:8.0
+    container_name: osticket_db
+    restart: always
+    environment:
+      MYSQL_USER: ${DB_USER:-osticket}
+      MYSQL_PASSWORD: ${DB_PASS:-osticket}
+      MYSQL_DATABASE: ${DB_NAME:-osticket}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS_ROOT:-longstrongpassword}
+    volumes:
+      - ./database:/var/lib/mysql
+
+volumes:
+  osticket_data:
