@@ -2,6 +2,8 @@
 
 > cp ./web/include/ost-sampleconfig.php ./web/include/ost-config.php
 > chmod 0666 ./web/include/ost-config.php
+> mkdir attachments
+> chmod +x attachments/
 
 # Não esquecer de renomear o database host para o contexto docker
 
